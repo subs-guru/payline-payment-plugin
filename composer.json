@@ -1,0 +1,24 @@
+{
+    "name": "subsguru/payline-payment-plugin",
+    "description": "Payline payment plugin for Subs.Guru",
+    "type": "cakephp-plugin",
+    "require": {
+        "php": ">=5.5.9",
+        "cakephp/cakephp": ">=3.3.2 <4.0.0",
+        "monext/payline-sdk": ">=4.48 <5.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "SubsGuru\\Payline\\": "src\\"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SubsGuru\\Test\\": "tests",
+            "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
+        }
+    }
+}
