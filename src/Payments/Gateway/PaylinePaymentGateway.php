@@ -7,6 +7,7 @@ use App\Model\Entity\PaymentMeanConfig;
 use App\Payments\AbstractPaymentGateway;
 use App\Payments\Exception\PaymentGatewayException;
 use App\Payments\Exception\PaymentGatewayWarningException;
+use Cake\Utility\Text;
 use Payline\PaylineSDK;
 
 /**
@@ -215,7 +216,7 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
      */
     public function onCreate(PaymentMean $paymentMean, array $form)
     {
-        $walletID = $paymentMean->getCustomer()->id;
+        $walletID = Text::uuid();
         $sdk = $this->sdk($paymentMean);
 
         // Create Wallet
