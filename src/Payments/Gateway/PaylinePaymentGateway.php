@@ -133,6 +133,7 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
                 'field' => [
                     'label' => __d('payment-payline', "Card number"),
                     'type' => 'text',
+                    'placeholder' => 'ex: 4929550861981029',
                     'required' => true
                 ]
             ],
@@ -147,6 +148,7 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
                 'field' => [
                     'label' => __d('payment-payline', "Expiration date"),
                     'type' => 'text',
+                    'placeholder' => __d('payment-payline', 'format: MMYY'),
                     'required' => true
                 ]
             ]
