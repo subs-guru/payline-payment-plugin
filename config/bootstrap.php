@@ -5,4 +5,4 @@ use App\Payments\PaymentGatewayRepository;
 //
 // Registering Payline payment handler
 //
-PaymentGatewayRepository::addHandler('SubsGuru\\Payline\\Payments\\Gateway\\PaylinePaymentGateway');
+PaymentGatewayRepository::add('SubsGuru\\Payline\\Payments\\Gateway\\PaylinePaymentGateway');
