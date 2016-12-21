@@ -214,27 +214,33 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
     /**
      * {@inheritDoc}
      */
-    public function onCreate(PaymentMean $paymentMean, array $form)
+    public function onCreate(PaymentMean $paymentMean, array $form, array $options = [])
     {
-        $walletID = Text::uuid();
-        $sdk = $this->sdk($paymentMean);
+        if (!empty($options['wallet_id'])) {
+            // Wallet token is provided, we didn't create it.
+            $walletID = $options['wallet_id'];
+            $cardIndex = (!empty($options['card_index'])) ? $options['card_index'] : '';
+        } else {
+            $walletID = Text::uuid();
+            $cardIndex = '';
 
-        // Create Wallet
-        $response = $this->createWallet(
-            $sdk,
-            $paymentMean,
-            $walletID,
-            $form['card_number'],
-            $form['card_cvv'],
-            $form['card_exp']
-        );
+            // Create Wallet
+            $response = $this->createWallet(
+                $this->sdk($paymentMean),
+                $paymentMean,
+                $walletID,
+                $form['card_number'],
+                $form['card_cvv'],
+                $form['card_exp']
+            );
 
-        if ($response['success'] !== true) {
-            throw new PaymentGatewayException($response['result']['longMessage'], ['error_message' => $response['result']['longMessage'], 'error_code' => $response['result']['code']]);
+            if ($response['success'] !== true) {
+                throw new PaymentGatewayException($response['result']['longMessage'], ['error_message' => $response['result']['longMessage'], 'error_code' => $response['result']['code']]);
+            }
         }
 
         $paymentMean->setParameter('wallet_id', $walletID);
-        $paymentMean->setParameter('card_index', '');
+        $paymentMean->setParameter('card_index', $cardIndex);
     }
 
     /**
