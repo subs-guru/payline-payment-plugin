@@ -1,7 +1,7 @@
 {% set unknown = '<i class="text-muted">unknown</i>' %}
 
-{{ _view.assign('title', __d('payment-payline', 'Wallet check')) }}
-{{ _view.assign('page-title', __d('payment-payline', "Wallet for payment mean `{0}`", paymentMean.getPaymentGateway().getPrettyName())) }}
+{{ _view.assign('title', __d('SubsGuru/Payline', 'Wallet check')) }}
+{{ _view.assign('page-title', __d('SubsGuru/Payline', "Wallet for payment mean `{0}`", paymentMean.getPaymentGateway().getPrettyName())) }}
 
 <div class="row">
     <div class="col-xs-12 col-lg-2">
@@ -10,7 +10,7 @@
                 <i class="glyphicon glyphicon-{{ response.success ? 'ok' : 'remove' }}"></i>
             </span>
             <div class="info-box-content">
-              <span class="info-box-text">{{ __d('payment-payline', "Status") }}</span>
+              <span class="info-box-text">{{ __d('SubsGuru/Payline', "Status") }}</span>
               <span class="info-box-number">{{ response.success ? 'OK' : 'Error' }}</span>
             </div>
         </div>
@@ -30,23 +30,23 @@
             <div class="box-body">
                 <dl class="inline">
                     <div class="line clearfix">
-                        <dt>{{ __d('payment-payline', "Wallet ID") }}</dt>
+                        <dt>{{ __d('SubsGuru/Payline', "Wallet ID") }}</dt>
                         <dd>{{ response.wallet.walletId|default(unknown)|raw }}</dd>
                     </div>
                     <div class="line clearfix">
-                        <dt>{{ __d('payment-payline', "Firstname") }}</dt>
+                        <dt>{{ __d('SubsGuru/Payline', "Firstname") }}</dt>
                         <dd>{{ response.wallet.firstname|default(unknown)|raw }}</dd>
                     </div>
                     <div class="line clearfix">
-                        <dt>{{ __d('payment-payline', "Lastname") }}</dt>
+                        <dt>{{ __d('SubsGuru/Payline', "Lastname") }}</dt>
                         <dd>{{ response.wallet.lastname|default(unknown)|raw }}</dd>
                     </div>
                     <div class="line clearfix">
-                        <dt>{{ __d('payment-payline', "E-mail") }}</dt>
+                        <dt>{{ __d('SubsGuru/Payline', "E-mail") }}</dt>
                         <dd>{{ response.wallet.email|default(unknown)|raw }}</dd>
                     </div>
                     <div class="line clearfix">
-                        <dt>{{ __d('payment-payline', "Card") }}</dt>
+                        <dt>{{ __d('SubsGuru/Payline', "Card") }}</dt>
                         <dd>{{ response.wallet.card.number|default(unknown)|raw }}</dd>
                     </div>
                 </dl>

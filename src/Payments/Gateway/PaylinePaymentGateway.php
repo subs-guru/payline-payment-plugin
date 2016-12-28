@@ -42,7 +42,7 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
      */
     public function getPrettyName()
     {
-        return __d('payment-payline', 'Payline');
+        return __d('SubsGuru/Payline', 'Payline');
     }
 
     /**
@@ -50,7 +50,7 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
      */
     public function getShortDescriptionText()
     {
-        return __d('payment-payline', 'Payline');
+        return __d('SubsGuru/Payline', 'Payline');
     }
 
     /**
@@ -61,32 +61,32 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
         return [
             'merchant_id' => [
                 'field' => [
-                    'label' => __d('payment-payline', 'Merchant ID'),
+                    'label' => __d('SubsGuru/Payline', 'Merchant ID'),
                     'type' => 'text',
                     'required' => true
                 ]
             ],
             'api_key' => [
                 'field' => [
-                    'label' => __d('payment-payline', 'API key'),
+                    'label' => __d('SubsGuru/Payline', 'API key'),
                     'type' => 'text',
                     'required' => true
                 ]
             ],
             'contract_number' => [
                 'field' => [
-                    'label' => __d('payment-payline', 'Contract number'),
+                    'label' => __d('SubsGuru/Payline', 'Contract number'),
                     'type' => 'text',
                     'required' => true
                 ]
             ],
             'environment' => [
                 'field' => [
-                    'label' => __d('payment-payline', 'Environment'),
+                    'label' => __d('SubsGuru/Payline', 'Environment'),
                     'type' => 'select',
                     'options' => [
-                        PaylineSDK::ENV_HOMO => __d('payment-payline', 'Homologation (testing)'),
-                        PaylineSDK::ENV_PROD => __d('payment-payline', 'Production')
+                        PaylineSDK::ENV_HOMO => __d('SubsGuru/Payline', 'Homologation (testing)'),
+                        PaylineSDK::ENV_PROD => __d('SubsGuru/Payline', 'Production')
                     ],
                     'required' => true
                 ]
@@ -102,19 +102,19 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
         return [
             'wallet_id' => [
                 'field' => [
-                    'label' => __d('payment-payline', "Wallet ID"),
+                    'label' => __d('SubsGuru/Payline', "Wallet ID"),
                     'type' => 'text',
                     'required' => true
                 ]
             ],
             'card_index' => [
                 'field' => [
-                    'label' => __d('payment-payline', "Card index"),
+                    'label' => __d('SubsGuru/Payline', "Card index"),
                     'type' => 'text',
                     'required' => false,
                     'default' => '',
                 ],
-                'help' => __d('payment-payline', 'Define the card index to use, default card will be used if blank.')
+                'help' => __d('SubsGuru/Payline', 'Define the card index to use, default card will be used if blank.')
             ]
         ];
     }
@@ -132,7 +132,7 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
         return [
             'card_number' => [
                 'field' => [
-                    'label' => __d('payment-payline', "Card number"),
+                    'label' => __d('SubsGuru/Payline', "Card number"),
                     'type' => 'text',
                     'placeholder' => 'ex: 4929550861981029',
                     'required' => true
@@ -140,16 +140,16 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
             ],
             'card_cvv' => [
                 'field' => [
-                    'label' => __d('payment-payline', "Verification code"),
+                    'label' => __d('SubsGuru/Payline', "Verification code"),
                     'type' => 'text',
                     'required' => true
                 ]
             ],
             'card_exp' => [
                 'field' => [
-                    'label' => __d('payment-payline', "Expiration date"),
+                    'label' => __d('SubsGuru/Payline', "Expiration date"),
                     'type' => 'text',
-                    'placeholder' => __d('payment-payline', 'format: MMYY'),
+                    'placeholder' => __d('SubsGuru/Payline', 'format: MMYY'),
                     'required' => true
                 ]
             ]
