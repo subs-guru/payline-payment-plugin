@@ -1,0 +1,105 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2016-12-28 16:33+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /Volumes/Mars/Web/spread/subsguru/www/Payments/Gateway/PaylinePaymentGateway.php:45;53
+msgid "Payline"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/Payments/Gateway/PaylinePaymentGateway.php:64
+msgid "Merchant ID"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/Payments/Gateway/PaylinePaymentGateway.php:71
+msgid "API key"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/Payments/Gateway/PaylinePaymentGateway.php:78
+msgid "Contract number"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/Payments/Gateway/PaylinePaymentGateway.php:85
+msgid "Environment"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/Payments/Gateway/PaylinePaymentGateway.php:88
+msgid "Homologation (testing)"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/Payments/Gateway/PaylinePaymentGateway.php:89
+msgid "Production"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/Payments/Gateway/PaylinePaymentGateway.php:105
+#: /Volumes/Mars/Web/spread/subsguru/www/tmp/cache/twigView-i18n-extract/aa/aaad09bb4a0ff3e810a27ff53b6812d8033960c087c82ec968d3b1a74f035c6a.php:81
+msgid "Wallet ID"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/Payments/Gateway/PaylinePaymentGateway.php:112
+msgid "Card index"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/Payments/Gateway/PaylinePaymentGateway.php:117
+msgid "Define the card index to use, default card will be used if blank."
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/Payments/Gateway/PaylinePaymentGateway.php:135
+msgid "Card number"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/Payments/Gateway/PaylinePaymentGateway.php:143
+msgid "Verification code"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/Payments/Gateway/PaylinePaymentGateway.php:150
+msgid "Expiration date"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/Payments/Gateway/PaylinePaymentGateway.php:152
+msgid "format: MMYY"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/tmp/cache/twigView-i18n-extract/aa/aaad09bb4a0ff3e810a27ff53b6812d8033960c087c82ec968d3b1a74f035c6a.php:27
+msgid "Wallet check"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/tmp/cache/twigView-i18n-extract/aa/aaad09bb4a0ff3e810a27ff53b6812d8033960c087c82ec968d3b1a74f035c6a.php:31
+msgid "Wallet for payment mean `{0}`"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/tmp/cache/twigView-i18n-extract/aa/aaad09bb4a0ff3e810a27ff53b6812d8033960c087c82ec968d3b1a74f035c6a.php:49
+msgid "Status"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/tmp/cache/twigView-i18n-extract/aa/aaad09bb4a0ff3e810a27ff53b6812d8033960c087c82ec968d3b1a74f035c6a.php:72
+msgid "Wallet informations"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/tmp/cache/twigView-i18n-extract/aa/aaad09bb4a0ff3e810a27ff53b6812d8033960c087c82ec968d3b1a74f035c6a.php:91
+msgid "Firstname"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/tmp/cache/twigView-i18n-extract/aa/aaad09bb4a0ff3e810a27ff53b6812d8033960c087c82ec968d3b1a74f035c6a.php:101
+msgid "Lastname"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/tmp/cache/twigView-i18n-extract/aa/aaad09bb4a0ff3e810a27ff53b6812d8033960c087c82ec968d3b1a74f035c6a.php:111
+msgid "E-mail"
+msgstr ""
+
+#: /Volumes/Mars/Web/spread/subsguru/www/tmp/cache/twigView-i18n-extract/aa/aaad09bb4a0ff3e810a27ff53b6812d8033960c087c82ec968d3b1a74f035c6a.php:121
+msgid "Card"
+msgstr ""
+
