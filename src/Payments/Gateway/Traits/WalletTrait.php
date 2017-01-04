@@ -88,8 +88,8 @@ trait WalletTrait
             'street2' => trim($customer->org_address_2 . "\n" . $customer->org_address_3),
             'zipCode' => $customer->org_zip_code,
             'cityName' => $customer->org_city,
-            'country' => $customer->org_country,
-            'phone' => $customer->contact_phone
+            'country' => $customer->org_country
+            // 'phone' => $customer->contact_phone
         ];
 
         // Wallet final request
