@@ -201,12 +201,16 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
      */
     public function doPayment(Payment $payment, array $config, array $parameters, $amount, $currency, $recurrent = false)
     {
+        $timezone = date_default_timezone_get();
+
         $sdk = $this->sdk($payment->payment_mean);
         $response = $this->createWalletPayment($sdk, $payment, $recurrent);
 
         $status = ($response['success'] === true)
             ? $this->getSuccessStatus()
             : $this->getErrorStatus();
+
+        date_default_timezone_set($timezone);
 
         $payment->updateStatus($status, $response['result']['longMessage'], $response);
     }
@@ -216,6 +220,8 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
      */
     public function onCreate(PaymentMean $paymentMean, array $form, array $options = [])
     {
+        $timezone = date_default_timezone_get();
+
         if (!empty($options['wallet_id'])) {
             // Wallet token is provided, we didn't create it.
             $walletID = $options['wallet_id'];
@@ -238,6 +244,8 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
                 throw new PaymentGatewayException($response['result']['longMessage'], ['error_message' => $response['result']['longMessage'], 'error_code' => $response['result']['code']]);
             }
         }
+
+        date_default_timezone_set($timezone);
 
         $paymentMean->setParameter('wallet_id', $walletID);
         $paymentMean->setParameter('card_index', $cardIndex);
