@@ -46,13 +46,10 @@ trait WalletTrait
      */
     public function getWallet(PaylineSDK $sdk, PaymentMean $paymentMean, $cardIndex = '', $version = '')
     {
-        $config = $this->getConfiguration()->getProperties();
-        $params = $paymentMean->getParameters();
-
         // Wallet final request
         $request = [
-            'contractNumber' => $config['contract_number'],
-            'walletId' => $params['wallet_id'],
+            'contractNumber' => $this->getConfiguration()->getProperty('contract_number'),
+            'walletId' => $paymentMean->getParameter('wallet_id'),
             'cardInd' => $cardIndex,
             'version' => $version
         ];

@@ -188,6 +188,39 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
         return [];
     }
 
+    public function getCurrentServiceInformations(PaymentMean $paymentMean)
+    {
+        $walletId = $paymentMean->getParameter('wallet_id');
+
+        if (empty($walletId)) {
+            return [];
+        }
+
+        $sdk = $this->sdk($paymentMean);
+        $response = $this->getWallet($sdk, $paymentMean);
+
+        if ($response['success'] !== true) {
+            return [];
+        }
+
+        // dump($response); die;
+
+        $expirationDate = $response['wallet']['card']['expirationDate'];
+
+        return [
+            'card' => [
+                'type' => 'string',
+                'label' => __d('SubsGuru/Payline', "Card number"),
+                'value' => $response['wallet']['card']['number']
+            ],
+            'expiration' => [
+                'type' => 'string',
+                'label' => __d('SubsGuru/Payline', "Expiration date"),
+                'value' => substr($expirationDate, 0, 2) . '/20' . substr($expirationDate, 2)
+            ]
+        ];
+    }
+
     /**
      * {@inheritDoc}
      */
