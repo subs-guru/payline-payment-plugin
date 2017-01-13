@@ -158,7 +158,7 @@ trait WalletTrait
             ],
             // Order
             'order' => [
-                'ref' => uniqid(), // $invoice->id,
+                'ref' => $payment->id,
                 'origin' => '1',
                 'amount' => $amount,
                 // 'taxes' => 0,
