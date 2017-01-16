@@ -229,6 +229,28 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
         return false;
     }
 
+    public function isRecoverable(Payment $payment)
+    {
+        if ($payment->hasError() !== true) {
+            return false;
+        }
+
+        $status = $payment->getCurrentStatus();
+
+        $recoverable = [
+            '01116', // Amount limit
+            '01121', // Debit limit exceeded
+            '01202', // Fraud suspected by bank
+            '01907', // Card provider server error
+            '01909', // Bank server Internal error
+            '01912', // Card provider server unknown or unavailable
+        ];
+
+        $response = $status->getExecutionInformations();
+
+        return in_array($response['result']['code'], $recoverable);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -246,6 +268,14 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
         date_default_timezone_set($timezone);
 
         $payment->updateStatus($status, $response['result']['longMessage'], $response);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function doRecover(Payment $payment, array $config, array $params)
+    {
+        $this->doPayment($payment, $config, $params, $payment->getAmount(), $payment->getCurrency());
     }
 
     /**
