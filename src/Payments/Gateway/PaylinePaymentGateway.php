@@ -237,7 +237,7 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
 
         $status = $payment->getCurrentStatus();
 
-        $recoverable = [
+        $recoverableCodes = [
             '01116', // Amount limit
             '01121', // Debit limit exceeded
             '01202', // Fraud suspected by bank
@@ -246,9 +246,14 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
             '01912', // Card provider server unknown or unavailable
         ];
 
+        $recoverableMessages = [
+            "could not connect to host" // Problem when connecting to Payline server
+        ];
+
         $response = $status->getExecutionInformations();
 
-        return in_array($response['result']['code'], $recoverable);
+        return in_array($response['result']['code'], $recoverableCodes)
+            || in_array(strtolower($response['result']['shortMessage']), $recoverableMessages);
     }
 
     /**
