@@ -1,6 +1,6 @@
 <?php
 
-use App\Payments\PaymentGatewayRepository;
+use SubsGuru\Core\Payments\PaymentGatewayRepository;
 
 //
 // Registering Payline payment handler

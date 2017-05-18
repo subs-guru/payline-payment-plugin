@@ -1,14 +1,14 @@
 <?php
 namespace SubsGuru\Payline\Payments\Gateway;
 
-use App\Model\Entity\Payment;
-use App\Model\Entity\PaymentMean;
-use App\Model\Entity\PaymentMeanConfig;
-use App\Payments\AbstractPaymentGateway;
-use App\Payments\Exception\PaymentGatewayException;
-use App\Payments\Exception\PaymentGatewayWarningException;
 use Cake\Utility\Text;
 use Payline\PaylineSDK;
+use SubsGuru\Core\Model\Entity\Payment;
+use SubsGuru\Core\Model\Entity\PaymentMean;
+use SubsGuru\Core\Model\Entity\PaymentMeanConfig;
+use SubsGuru\Core\Payments\AbstractPaymentGateway;
+use SubsGuru\Core\Payments\Exception\PaymentGatewayException;
+use SubsGuru\Core\Payments\Exception\PaymentGatewayWarningException;
 
 /**
  * Payline payment handler.

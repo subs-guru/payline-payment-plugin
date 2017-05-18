@@ -1,10 +1,10 @@
 <?php
 namespace SubsGuru\Payline\Payments\Gateway\Traits;
 
-use App\Model\Entity\Payment;
-use App\Model\Entity\PaymentMean;
 use Commercie\Currency\ResourceRepository as Currency;
 use Payline\PaylineSDK;
+use SubsGuru\Core\Model\Entity\Payment;
+use SubsGuru\Core\Model\Entity\PaymentMean;
 
 /**
  * Wallet methods.

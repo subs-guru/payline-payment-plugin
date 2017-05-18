@@ -1,9 +1,9 @@
 <?php
 namespace SubsGuru\Payline\Controller;
 
-use App\Controller\AppController as BaseController;
+use SubsGuru\Core\Controller\SubsGuruCoreController;
 
-class AppController extends BaseController
+class AppController extends SubsGuruCoreController
 {
     /**
      * {@inheritDoc}
