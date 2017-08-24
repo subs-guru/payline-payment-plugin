@@ -86,7 +86,8 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
                     'type' => 'select',
                     'options' => [
                         PaylineSDK::ENV_HOMO => __d('SubsGuru/Payline', 'Homologation (testing)'),
-                        PaylineSDK::ENV_PROD => __d('SubsGuru/Payline', 'Production')
+                        PaylineSDK::ENV_PROD => __d('SubsGuru/Payline', 'Production'),
+                        PaylineSDK::ENV_PROD_CC => __d('SubsGuru/Payline', 'Production (certificat based)')
                     ],
                     'required' => true
                 ]
@@ -136,13 +137,25 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
                     'type' => 'text',
                     'placeholder' => 'ex: 4929550861981029',
                     'required' => true
+                ],
+                'validators' => [
+                    'format' => [
+                        'rule' => ['cc', 'all'],
+                        'message' => 'Wrong credit card number'
+                    ]
                 ]
             ],
             'card_cvv' => [
                 'field' => [
                     'label' => __d('SubsGuru/Payline', "Verification code"),
-                    'type' => 'text',
+                    'type' => 'password',
                     'required' => true
+                ],
+                'validators' => [
+                    'format' => [
+                        'rule' => [$this, 'validateCardCVV'],
+                        'message' => __d('SubsGuru/Payline', 'Wrong card CVV format (3 digits)')
+                    ]
                 ]
             ],
             'card_exp' => [
@@ -151,6 +164,12 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
                     'type' => 'text',
                     'placeholder' => __d('SubsGuru/Payline', 'format: MMYY'),
                     'required' => true
+                ],
+                'validators' => [
+                    'format' => [
+                        'rule' => [$this, 'validateCardExpiration'],
+                        'message' => __d('SubsGuru/Payline', 'Wrong card expiration format (MMYY)')
+                    ]
                 ]
             ]
         ];
@@ -291,7 +310,7 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
         $timezone = date_default_timezone_get();
 
         if (!empty($options['wallet_id'])) {
-            // Wallet token is provided, we didn't create it.
+            // Wallet token is provided, we don't create it.
             $walletID = $options['wallet_id'];
             $cardIndex = (!empty($options['card_index'])) ? $options['card_index'] : '';
         } else {
@@ -305,7 +324,7 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
                 $walletID,
                 $form['card_number'],
                 $form['card_cvv'],
-                $form['card_exp']
+                $this->parseCardExpirationDate($form['card_exp'])
             );
 
             if ($response['success'] !== true) {
@@ -333,5 +352,49 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
     public function onParameterize(PaymentMean $paymentMean)
     {
         //@TODO Should we check the given token to Payline and throw an `PaymentGatewayWarningException` if token is wrong ?
+    }
+
+    /**
+     * Check credit card CVV.
+     * Format: "123"
+     *
+     * @param string $exp Card CVV value
+     *
+     * @return bool
+     */
+    public function validateCardCVV($exp)
+    {
+        return preg_match('/[0-9]{3}/', $exp) === 1;
+    }
+
+    /**
+     * Check credit card expiration date.
+     * Format : "MMYY" or "MM/YY"
+     *
+     * @param string $exp Card expiration date value
+     *
+     * @return bool
+     */
+    public function validateCardExpiration($exp)
+    {
+        return preg_match('/^([0-9]{2}\/[0-9]{2}|[0-9]{4})$/', $exp) === 1;
+    }
+
+    /**
+     * Parse and reformat (if needed) an expiration date for a Payline credit card.
+     *
+     * @param string $exp Expiration date
+     *
+     * @return string Formatted expiration date
+     */
+    private function parseCardExpirationDate($exp)
+    {
+        // Format "MM/YY"
+        if (preg_match('/^(?<MM>[0-9]+)\/(?<YY>[0-9]+)$/', $exp, $captures)) {
+            return $captures['MM'] . $captures['YY'];
+        }
+
+        // Format "MMYY"
+        return $exp;
     }
 }
