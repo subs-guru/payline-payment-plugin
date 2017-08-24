@@ -148,7 +148,7 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
             'card_cvv' => [
                 'field' => [
                     'label' => __d('SubsGuru/Payline', "Verification code"),
-                    'type' => 'password',
+                    'type' => 'text',
                     'required' => true
                 ],
                 'validators' => [
