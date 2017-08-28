@@ -29,9 +29,7 @@ trait WalletTrait
             null,
             null,
             null,
-            $config['environment'],
-            null,
-            null
+            $config['environment']
         );
     }
 
