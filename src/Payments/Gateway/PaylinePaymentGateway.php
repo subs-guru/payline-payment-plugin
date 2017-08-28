@@ -328,7 +328,10 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
             );
 
             if ($response['success'] !== true) {
-                throw new PaymentGatewayException($response['result']['longMessage'], ['error_message' => $response['result']['longMessage'], 'error_code' => $response['result']['code']]);
+                throw new PaymentGatewayException($response['result']['longMessage'] . ' (' . $response['result']['code'] . ')', [
+                    'error_message' => $response['result']['longMessage'],
+                    'error_code' => $response['result']['code']
+                ]);
             }
         }
 
