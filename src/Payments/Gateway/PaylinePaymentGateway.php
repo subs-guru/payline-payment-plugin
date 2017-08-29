@@ -135,7 +135,7 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
                 'field' => [
                     'label' => __d('SubsGuru/Payline', "Card number"),
                     'type' => 'text',
-                    'placeholder' => 'ex: 4929550861981029',
+                    'placeholder' => null,
                     'required' => true
                 ],
                 'validators' => [
@@ -162,6 +162,7 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
                 'field' => [
                     'label' => __d('SubsGuru/Payline', "Expiration date"),
                     'type' => 'text',
+                    'pattern' => '([0-9]{2}\/[0-9]{2}|[0-9]{4})',
                     'placeholder' => __d('SubsGuru/Payline', 'format: MMYY'),
                     'required' => true
                 ],
