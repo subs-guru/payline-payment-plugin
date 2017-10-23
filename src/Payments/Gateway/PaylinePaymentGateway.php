@@ -218,12 +218,11 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
 
         $sdk = $this->sdk($paymentMean);
         $response = $this->getWallet($sdk, $paymentMean);
+        // dump($response); die;
 
         if ($response['success'] !== true) {
-            return [];
+            throw new PaymentGatewayWarningException($response['result']['longMessage'] . ' (' . $response['result']['code'] . ')');
         }
-
-        // dump($response); die;
 
         $expirationDate = $response['wallet']['card']['expirationDate'];
 
