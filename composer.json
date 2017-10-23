@@ -5,7 +5,7 @@
     "require": {
         "php": ">=5.5.9",
         "cakephp/cakephp": ">=3.3.2 <4.0.0",
-        "monext/payline-sdk": "dev-master"
+        "subsguru/payline-sdk": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "*"
