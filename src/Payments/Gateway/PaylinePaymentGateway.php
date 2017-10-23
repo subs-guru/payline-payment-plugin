@@ -258,6 +258,7 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
         $status = $payment->getCurrentStatus();
 
         $recoverableCodes = [
+            'XXXXX', // Unauthorized
             '01116', // Amount limit
             '01121', // Debit limit exceeded
             '01202', // Fraud suspected by bank
