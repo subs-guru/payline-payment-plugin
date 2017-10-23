@@ -4,7 +4,7 @@ namespace SubsGuru\Payline\Payments\Gateway\Traits;
 use App\Model\Entity\Payment;
 use App\Model\Entity\PaymentMean;
 use Commercie\Currency\ResourceRepository as Currency;
-use SubsGuru\Payline\PaylineSDK;
+use Payline\PaylineSDK;
 
 /**
  * Wallet methods.
