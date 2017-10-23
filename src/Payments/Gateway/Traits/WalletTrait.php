@@ -4,7 +4,7 @@ namespace SubsGuru\Payline\Payments\Gateway\Traits;
 use App\Model\Entity\Payment;
 use App\Model\Entity\PaymentMean;
 use Commercie\Currency\ResourceRepository as Currency;
-use Payline\PaylineSDK;
+use SubsGuru\Payline\PaylineSDK;
 
 /**
  * Wallet methods.
@@ -23,8 +23,8 @@ trait WalletTrait
         $config = $this->getConfiguration()->getProperties();
 
         return new PaylineSDK(
-            $config['merchant_id'],
-            $config['api_key'],
+            (string)$config['merchant_id'],
+            (string)$config['api_key'],
             null,
             null,
             null,
