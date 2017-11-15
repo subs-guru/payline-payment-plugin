@@ -25,7 +25,7 @@ Nous venons de rencontrer une erreur sur un de vos paiements par carte bancaire 
 
 Merci de nous contacter pour régulariser le probleme :
 - par téléphone au 02 78 08 42 50 auprès de Barbara ou Sandrine
-- pour email en répondant à ce message (compta@spreadfamily.com)
+- par email en répondant à ce message (compta@spreadfamily.com)
 
 
 Vous trouverez ci après le détail de votre paiement.

@@ -36,7 +36,7 @@
                         Nous venons de rencontrer une erreur sur un de vos paiements par carte bancaire pour votre abonnement à <?= \Cake\Core\Configure::read(CONFIG_KEY . '.service.name'); ?>.<br><br>
                         Merci de nous contacter pour régulariser le problème :<br>
                         - par téléphone au 02 78 08 42 50 auprès de Barbara ou Sandrine<br>
-                        - pour email en répondant à ce message (<a href="mailto:compta@spreadfamily.com">compta@spreadfamily.com</a>)<br><br>
+                        - par email en répondant à ce message (<a href="mailto:compta@spreadfamily.com">compta@spreadfamily.com</a>)<br><br>
                         Vous trouverez ci après le détail de votre paiement.
                     </td>
                 </tr>
