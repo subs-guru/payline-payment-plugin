@@ -86,7 +86,8 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
                     'type' => 'select',
                     'options' => [
                         PaylineSDK::ENV_HOMO => __d('SubsGuru/Payline', 'Homologation (testing)'),
-                        PaylineSDK::ENV_PROD => __d('SubsGuru/Payline', 'Production')
+                        PaylineSDK::ENV_PROD => __d('SubsGuru/Payline', 'Production'),
+                        PaylineSDK::ENV_PROD_CC => __d('SubsGuru/Payline', 'Production (certificat based)')
                     ],
                     'required' => true
                 ]
@@ -134,8 +135,14 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
                 'field' => [
                     'label' => __d('SubsGuru/Payline', "Card number"),
                     'type' => 'text',
-                    'placeholder' => 'ex: 4929550861981029',
+                    'placeholder' => null,
                     'required' => true
+                ],
+                'validators' => [
+                    'format' => [
+                        'rule' => ['cc', 'all'],
+                        'message' => 'Wrong credit card number'
+                    ]
                 ]
             ],
             'card_cvv' => [
@@ -143,14 +150,27 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
                     'label' => __d('SubsGuru/Payline', "Verification code"),
                     'type' => 'text',
                     'required' => true
+                ],
+                'validators' => [
+                    'format' => [
+                        'rule' => [$this, 'validateCardCVV'],
+                        'message' => __d('SubsGuru/Payline', 'Wrong card CVV format (3 digits)')
+                    ]
                 ]
             ],
             'card_exp' => [
                 'field' => [
                     'label' => __d('SubsGuru/Payline', "Expiration date"),
                     'type' => 'text',
+                    'pattern' => '([0-9]{2}\/[0-9]{2}|[0-9]{4})',
                     'placeholder' => __d('SubsGuru/Payline', 'format: MMYY'),
                     'required' => true
+                ],
+                'validators' => [
+                    'format' => [
+                        'rule' => [$this, 'validateCardExpiration'],
+                        'message' => __d('SubsGuru/Payline', 'Wrong card expiration format (MMYY)')
+                    ]
                 ]
             ]
         ];
@@ -198,12 +218,11 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
 
         $sdk = $this->sdk($paymentMean);
         $response = $this->getWallet($sdk, $paymentMean);
+        // dump($response); die;
 
         if ($response['success'] !== true) {
-            return [];
+            throw new PaymentGatewayWarningException($response['result']['longMessage'] . ' (' . $response['result']['code'] . ')');
         }
-
-        // dump($response); die;
 
         $expirationDate = $response['wallet']['card']['expirationDate'];
 
@@ -238,6 +257,7 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
         $status = $payment->getCurrentStatus();
 
         $recoverableCodes = [
+            'XXXXX', // Unauthorized
             '01116', // Amount limit
             '01121', // Debit limit exceeded
             '01202', // Fraud suspected by bank
@@ -291,7 +311,7 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
         $timezone = date_default_timezone_get();
 
         if (!empty($options['wallet_id'])) {
-            // Wallet token is provided, we didn't create it.
+            // Wallet token is provided, we don't create it.
             $walletID = $options['wallet_id'];
             $cardIndex = (!empty($options['card_index'])) ? $options['card_index'] : '';
         } else {
@@ -305,11 +325,14 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
                 $walletID,
                 $form['card_number'],
                 $form['card_cvv'],
-                $form['card_exp']
+                $this->parseCardExpirationDate($form['card_exp'])
             );
 
             if ($response['success'] !== true) {
-                throw new PaymentGatewayException($response['result']['longMessage'], ['error_message' => $response['result']['longMessage'], 'error_code' => $response['result']['code']]);
+                throw new PaymentGatewayException($response['result']['longMessage'] . ' (' . $response['result']['code'] . ')', [
+                    'error_message' => $response['result']['longMessage'],
+                    'error_code' => $response['result']['code']
+                ]);
             }
         }
 
@@ -333,5 +356,63 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
     public function onParameterize(PaymentMean $paymentMean)
     {
         //@TODO Should we check the given token to Payline and throw an `PaymentGatewayWarningException` if token is wrong ?
+    }
+
+    /**
+     * Check credit card CVV.
+     * Format: "123"
+     *
+     * @param string $exp Card CVV value
+     *
+     * @return bool
+     */
+    public function validateCardCVV($exp)
+    {
+        return preg_match('/[0-9]{3}/', $exp) === 1;
+    }
+
+    /**
+     * Check credit card expiration date.
+     * Format : "MMYY" or "MM/YY"
+     *
+     * @param string $exp Card expiration date value
+     *
+     * @return bool
+     */
+    public function validateCardExpiration($exp)
+    {
+        return preg_match('/^([0-9]{2}\/[0-9]{2}|[0-9]{4})$/', $exp) === 1;
+    }
+
+    /**
+     * Parse and reformat (if needed) an expiration date for a Payline credit card.
+     *
+     * @param string $exp Expiration date
+     *
+     * @return string Formatted expiration date
+     */
+    private function parseCardExpirationDate($exp)
+    {
+        // Format "MM/YY"
+        if (preg_match('/^(?<MM>[0-9]+)\/(?<YY>[0-9]+)$/', $exp, $captures)) {
+            return $captures['MM'] . $captures['YY'];
+        }
+
+        // Format "MMYY"
+        return $exp;
+    }
+
+    /**
+     * Notification sent when a payment hits an "error" status with the Payline Gateway
+     *
+     * @param \App\Model\Entity\PaymentMean $paymentMean Instance of the payment mean the payment was made with.
+     * @param \App\Model\Entity\Payment $payment Instance of the payment we are notifying about.
+     * @param string $status String status of the payment.
+     * @return void
+     */
+    public function sendNotificationOnError(PaymentMean $paymentMean, Payment $payment, $status)
+    {
+        $mailer = $this->getMailer('SubsGuru/Payline.PaylineNotifications');
+        $mailer->send($status, [$paymentMean, $payment]);
     }
 }

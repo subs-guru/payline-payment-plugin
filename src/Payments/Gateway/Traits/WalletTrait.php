@@ -23,15 +23,13 @@ trait WalletTrait
         $config = $this->getConfiguration()->getProperties();
 
         return new PaylineSDK(
-            $config['merchant_id'],
-            $config['api_key'],
+            (string)$config['merchant_id'],
+            (string)$config['api_key'],
             null,
             null,
             null,
             null,
-            $config['environment'],
-            null,
-            null
+            $config['environment']
         );
     }
 
