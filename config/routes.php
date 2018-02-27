@@ -7,7 +7,7 @@ Router::plugin(
     'SubsGuru/Payline',
     ['path' => '/payline'],
     function (RouteBuilder $routes) {
-        $routes->extensions(['json', 'xml']);
+        $routes->setExtensions(['json', 'xml']);
         $routes->fallbacks(DashedRoute::class);
     }
 );
