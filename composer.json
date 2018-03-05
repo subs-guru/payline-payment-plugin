@@ -5,6 +5,7 @@
     "require": {
         "php": ">=5.5.9",
         "cakephp/cakephp": ">=3.3.2 <4.0.0",
+        "commercie/currency": ">=1.1.0 <2.0.0",
         "monext/payline-sdk": ">=4.52 <5.0.0"
     },
     "require-dev": {
