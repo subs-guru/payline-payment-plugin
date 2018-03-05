@@ -15,7 +15,7 @@ trait WalletTrait
     /**
      * Create a new Payline API instance from current payment mean configuration.
      *
-     * @param App\Model\Entity\PaymentMean $paymentMean Related payment mean
+     * @param SubsGuru\Core\Model\Entity\PaymentMean $paymentMean Related payment mean
      * @return Payline\PaylineSDK
      */
     public function sdk(PaymentMean $paymentMean)

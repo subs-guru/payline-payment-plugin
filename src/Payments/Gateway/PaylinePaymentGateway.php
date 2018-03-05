@@ -405,8 +405,8 @@ class PaylinePaymentGateway extends AbstractPaymentGateway
     /**
      * Notification sent when a payment hits an "error" status with the Payline Gateway
      *
-     * @param \App\Model\Entity\PaymentMean $paymentMean Instance of the payment mean the payment was made with.
-     * @param \App\Model\Entity\Payment $payment Instance of the payment we are notifying about.
+     * @param \SubsGuru\Core\Model\Entity\PaymentMean $paymentMean Instance of the payment mean the payment was made with.
+     * @param \SubsGuru\Core\Model\Entity\Payment $payment Instance of the payment we are notifying about.
      * @param string $status String status of the payment.
      * @return void
      */

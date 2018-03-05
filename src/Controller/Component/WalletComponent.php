@@ -1,7 +1,7 @@
 <?php
 namespace SubsGuru\Payline\Controller\Component;
 
-use App\Model\Entity\PaymentMean;
+use SubsGuru\Core\Model\Entity\PaymentMean;
 use Cake\Controller\Component;
 use Payline\PaylineSDK;
 
