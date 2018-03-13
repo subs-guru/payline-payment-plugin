@@ -28,8 +28,9 @@ class PaylineNotificationsMailer extends PaymentsNotificationsMailer
 
         if ($payment->getAmount() > 0) {
             $this
-                ->template('SubsGuru/Payline.' . $language . '/payments/error-payment', 'SubsGuru/Payline.' . $language . '/default')
-                ->subject(__d('payments', 'Payment error for your subscription to {0}', Configure::read(CONFIG_KEY . '.service.name')));
+                ->setTemplate('SubsGuru/Payline.' . $language . '/payments/error-payment')
+                ->setLayout('SubsGuru/Payline.' . $language . '/default')
+                ->setSubject(__d('payments', 'Payment error for your subscription to {0}', Configure::read(CONFIG_KEY . '.service.name')));
         }
     }
 }
