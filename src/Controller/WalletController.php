@@ -8,7 +8,7 @@ class WalletController extends AppController
 {
     public function manage($id)
     {
-        $paymentMean = TableRegistry::get('PaymentMeans')->get($id);
+        $paymentMean = TableRegistry::get('SubsGuru/Core.PaymentMeans')->get($id);
         $response = $this->Wallet->get($paymentMean);
 
         $this->set('paymentMean', $paymentMean);
